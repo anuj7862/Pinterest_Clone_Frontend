@@ -1,0 +1,82 @@
+
+.pin {
+    position: relative;
+}
+
+.pinImg {
+    display: block;
+    border-radius: 2rem;
+    z-index: 2;
+}
+
+.cover {
+    position: absolute;
+    background-color: rgba(0, 0, 0, 0.3);
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    border-radius: 2rem;
+    opacity: 0;
+}
+
+.saveBtn {
+    position: absolute;
+    top: 1rem;
+    right: 1rem;
+    padding: .8rem .9rem;
+    font-weight: 600;
+    color: white;
+    background-color: red;
+    border-radius: 2rem;
+    border: 1px solid transparent;
+}
+.saveBtn:hover {
+    background-color: rgba(255, 0, 0, 0.8);
+    border: 1px solid white;
+}
+
+.downloadIcon {
+    position: absolute;
+    bottom: 1rem;
+    right: 1rem;
+    background-color: lightgrey;
+    padding: .4rem;
+    border-radius: 10rem;
+}
+.downloadIcon:hover {
+    background-color: white;
+}
+
+.shareIcon {
+    position: absolute;
+    bottom: 1rem;
+    right: 3.7rem;
+    background-color: lightgrey;
+    padding: .4rem;
+    border-radius: 10rem;
+}
+.shareIcon:hover {
+    background-color: white;
+}
+
+.copyText {
+    position: absolute;
+    bottom: 3.5rem;
+    right: 1.6rem;
+    padding: .5rem;
+    width: auto;
+    border-radius: 3rem;
+    background-color: rgba(255, 255, 255, 0.5);
+    font-size: smaller;
+    color: black;
+}
+
+.cover:hover {
+    opacity: 1;
+}
+
+.cover a{
+    text-decoration: none;
+    color: black;
+}

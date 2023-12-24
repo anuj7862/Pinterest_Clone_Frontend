@@ -1,15 +1,20 @@
 import { useState } from 'react'
-import './App.css'
-import Header from './components/Header/Header'
-import SignupPage from './pages/SignupPage/SignupPage'
+
+import './App.css';
+import Header from './components/Header/Header';
+import Pin from './components/Pin/Pin';
+import SignupPage from './pages/SignupPage/SignupPage';
+import { useSignal } from '@preact/signals-react';
+import HomePage from './pages/HomePage/HomePage';
+
 
 function App() {
-  const [count, setCount] = useState(0)
-
+  
   return (
     <>
       <Header/>
-      <SignupPage/>
+      {/* <SignupPage/> */}
+      <HomePage/>
     </>
   )
 }
