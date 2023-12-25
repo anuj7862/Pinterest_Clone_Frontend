@@ -1,0 +1,101 @@
+
+.heading {
+    padding: .5rem 2rem;
+    font-size:x-large;
+    font-weight: 500;
+    text-align: start;
+    border: 1px solid grey;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.publishBtn {
+    cursor: pointer;
+    padding: 1rem 1rem;
+    border-radius: 1.3rem;
+    font-size: medium;
+    font-weight: 500;
+    border: 1px solid lightgrey;
+    background-color: red;
+    color: white;
+}
+.publishBtn:hover {
+    border-color: white;
+}
+
+.container {
+    display: flex;
+    flex-direction: row;
+    padding:3rem 6rem ;
+    align-items: center;
+    justify-content: space-around;
+    width: 100%;
+}
+
+.imgUpload {
+    background-color: rgb(198, 194, 194);
+    border: 2px dotted grey;
+    border-radius: 3rem;
+    width: 25rem;
+    height: 30rem;
+}
+
+.formContainer {
+    width: 40rem;
+}
+
+.pinForm {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: .2rem;
+    padding-left: 1rem;
+}
+
+.pinLabel {
+    font-size: smaller;
+    color: rgb(48, 47, 47);
+}
+
+
+.pinInput {
+    padding: .8rem;
+    border: 2px solid rgb(157, 154, 154);
+    border-radius: .5rem;
+    width: 100%;
+    margin-bottom: 2rem;
+    font-size: medium;
+}
+
+.boardInput {
+    padding: .8rem;
+    border: 2px solid rgb(157, 154, 154);
+    border-radius: .5rem;
+    width: 100%;
+    margin-bottom: 1rem;
+    font-size: medium;
+    background-color: white;
+    color: grey;
+    position: relative;
+    cursor: pointer;
+}
+
+.boardInput .downArrow {
+    position: absolute;
+    top: .8rem;
+    right: 1rem;
+}
+
+.boardInput .optionsBox {
+    position: absolute;
+    top:0;
+    left: 0;
+    transform: translateX(-105%) translateY(-50%);
+}
+
+.moreOptions h4{
+    display: flex;
+    gap: .5rem;
+}
+

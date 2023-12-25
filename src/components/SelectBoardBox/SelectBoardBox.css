@@ -1,0 +1,66 @@
+
+.boardBox {
+    width: 20rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+    gap: 1rem;
+    padding: 1rem 0 0 0;
+    background-color: whitesmoke;
+    border-radius: 2rem;
+    color: black;
+    border: 1px solid black;
+    
+}
+
+.boardBox h5{
+    padding-left: 1.2rem;
+}
+
+.boardBox .boardOption {
+    display: flex;
+    align-items: center;
+    padding: 1rem 1.5rem;
+    position: relative;
+    border-radius: .5rem;
+}
+.boardBox .boardOption:hover {
+    background-color: grey;
+}
+
+.boardOption img {
+    width: 30px;
+    height: 30px;
+    border-radius: .2rem;
+}
+
+.boardOption .boardName {
+    margin-left: 2.5rem;
+}
+
+.boardOption .lockIcon {
+    color: black;
+    position: absolute;
+    top: 1rem;
+    right: 2rem;
+}
+.boardBox .boardOption:hover .lockIcon{
+    display: none;
+}
+
+.createBoard {
+    display: flex;
+    border-top: 1px solid grey;
+    padding: 1rem;
+    gap: 1rem;
+    align-items: center;
+    border-radius: 0 0 2rem 2rem;
+}
+.createBoard:hover{
+    background-color: grey;
+}
+
+.createBoard .createIcon {
+    color: red;
+}
+
