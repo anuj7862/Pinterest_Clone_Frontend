@@ -18,6 +18,7 @@
     height: 100%;
     border-radius: 2rem;
     opacity: 0;
+    cursor:zoom-in;
 }
 
 .saveBtn {
@@ -30,6 +31,7 @@
     background-color: red;
     border-radius: 2rem;
     border: 1px solid transparent;
+    cursor: pointer;
 }
 .saveBtn:hover {
     background-color: rgba(255, 0, 0, 0.8);
@@ -43,6 +45,7 @@
     background-color: lightgrey;
     padding: .4rem;
     border-radius: 10rem;
+    cursor: pointer;
 }
 .downloadIcon:hover {
     background-color: white;
@@ -55,6 +58,7 @@
     background-color: lightgrey;
     padding: .4rem;
     border-radius: 10rem;
+    cursor: pointer;
 }
 .shareIcon:hover {
     background-color: white;

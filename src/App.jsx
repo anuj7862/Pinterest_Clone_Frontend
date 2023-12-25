@@ -6,6 +6,7 @@ import Pin from './components/Pin/Pin';
 import SignupPage from './pages/SignupPage/SignupPage';
 import { useSignal } from '@preact/signals-react';
 import HomePage from './pages/HomePage/HomePage';
+import TodayPage from './pages/TodayPage/TodayPage';
 
 
 function App() {
@@ -14,7 +15,8 @@ function App() {
     <>
       <Header/>
       {/* <SignupPage/> */}
-      <HomePage/>
+      {/* <HomePage/> */}
+      <TodayPage/>
     </>
   )
 }
