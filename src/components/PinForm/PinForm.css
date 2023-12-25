@@ -24,7 +24,7 @@
     border-color: white;
 }
 
-.container {
+.pinFormContainer {
     display: flex;
     flex-direction: row;
     padding:3rem 6rem ;
@@ -34,11 +34,66 @@
 }
 
 .imgUpload {
+    position: relative;
     background-color: rgb(198, 194, 194);
     border: 2px dotted grey;
     border-radius: 3rem;
     width: 25rem;
     height: 30rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: .5rem;
+}
+
+.imgUpload input {
+    width: 70%;
+    padding: 1rem 1rem;
+    border-radius: 2rem;
+    position: relative;
+}
+
+.imgUpload .enterIcon {
+    color: grey;
+    border: 1px solid black;
+    border-radius: 10rem;
+}
+.imgUpload .enterIcon:hover {
+    color: black;
+}
+
+.imgUpload .invalidImg {
+    position: absolute;
+    bottom: 9rem;
+    left: 7.5rem;
+    padding: 1rem;
+    border-radius: 3rem;
+    color: white;
+    background-color: rgba(0, 0, 0, 0.4);
+}
+
+.showImage {
+    position: relative;
+}
+.showImage img {
+    max-width: 25rem;
+    max-height: 30rem;
+    border-radius: 1rem;
+}
+
+.showImage .editIcon {
+    position: absolute;
+    top: 1rem;
+    right: 1rem;
+    background-color: rgba(211, 211, 211, 0.6);
+    padding: .3rem;
+    border-radius: 10rem;
+    cursor: pointer;
+    border: 1px solid black;
+}
+
+.showImage .editIcon:hover {
+    background-color: lightgrey;
 }
 
 .formContainer {

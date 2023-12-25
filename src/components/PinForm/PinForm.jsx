@@ -3,6 +3,9 @@ import { useSignal } from '@preact/signals-react';
 import React, { useRef } from 'react';
 import { useState } from 'react';
 import { FaChevronDown, FaChevronUp } from "react-icons/fa";
+import { FaCircleChevronRight } from "react-icons/fa6";
+import { MdEdit } from "react-icons/md";
+
 import SelectBoardBox from '../SelectBoardBox/SelectBoardBox';
 
 import './PinForm.css';
@@ -16,27 +19,63 @@ function PinForm() {
     const [allowComments, setAllowComments] = useState(true);
     const [isBoardFocus, setIsBoardFocus] = useState(false);
     const [isMoreOption, setIsMoreOption] = useState(false);
+
+    const [imageLink, setImageLink] = useState('');
+    const [isValidImage, setIsValidImage] = useState(false); 
+    const [invalidImg, setInvalidImg] = useState(false); 
+
     const boardDiv = useRef(null);
 
     const handleSubmit = () => {
-        console.log("title :", title.value, "description :" , description.value, "board : ", board.value, "tagged Topics" , taggedTopics.value, "allowCom : ", allowComments );
+        console.log("title :", title.value, "imageLink : ", imageLink, "description :" , description.value, "board : ", board.value, "tagged Topics" , taggedTopics.value, "allowCom : ", allowComments );
     }
-
     const onBoardSelect = (selected) => {
         console.log('slslfks', selected);
         board.value = selected;
         setIsBoardFocus(false);
         boardDiv.current.blur();
     } 
-
     const handleMoreOption = () => {
         setIsMoreOption(!isMoreOption);
     }
-
     const handleSwitch = () =>{
         setAllowComments(!allowComments);
     }
+    const handleInputChange = (e) => {
+        const inputValue = e.target.value;
+        setImageLink(inputValue);
+        // setIsValidImage(true);
+    };
+    const handleImageValidation = () => {
+        const img = new Image();
+        img.src = imageLink;
+    
+        img.onload = () => {
+          setIsValidImage(true);
+        };
+    
+        img.onerror = () => {
+          setIsValidImage(false);
+          setImageLink('');
+          console.log("Error");
+          setInvalidImg(true);
+          const timeout = setTimeout(() => {
+            setInvalidImg(false);
+            clearTimeout(timeout);
+          }, 1000);
+        };
+    };
+    const handleKeyPress = (e) => {
+        if(e.key === 'Enter'){
+            handleImageValidation();
+        }
+    }
 
+    const handleEdit = () => {
+        setImageLink('');
+        setIsValidImage(false);
+    }
+    
     return (
         <>
             <div className="heading">
@@ -45,10 +84,28 @@ function PinForm() {
                     Publish
                 </div>
             </div>
-            <div className="container">
-                <div className="imgUpload">
-
-                </div>
+            <div className="pinFormContainer">
+                { !isValidImage &&
+                  <div className="imgUpload">
+                    <input
+                        type="text"
+                        placeholder="Paste image URL"
+                        value={imageLink}
+                        onChange={handleInputChange}
+                        onKeyPress={handleKeyPress}
+                    />
+                    <FaCircleChevronRight size={'2.5rem'} className='enterIcon' onClick={handleImageValidation} />
+                    { invalidImg &&
+                        <p className='invalidImg'> Invalid URL!</p>
+                    }
+                  </div>
+                }
+                {isValidImage && 
+                  <div className='showImage'>
+                    <img src={imageLink} alt="Preview" />
+                    <MdEdit className='editIcon' size={'2rem'} onClick={handleEdit}/>
+                  </div>
+                }
                 <div className="formContainer">
                     <form className="pinForm">
                         <label className='pinLabel'>Title:</label>
