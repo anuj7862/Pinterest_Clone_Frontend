@@ -1,0 +1,72 @@
+.boardCard {
+    width: 18rem;
+}
+
+.boardCard .imageDiv{
+    position: relative;
+    display: flex;
+    overflow: hidden;
+    border-radius: 1.5rem;
+}
+
+.imageDiv .imageDiv2 {
+    display: flex;
+    flex-direction: column;
+}
+
+.imageDiv img {
+    width: 9rem;
+    height: 10rem;
+    object-fit: cover;
+
+}
+
+.imageDiv2 img {
+    width: 9rem;
+    height: 5rem;
+    object-fit: cover;
+}
+
+.imageDiv .icons {
+    display: none;
+}
+
+.imageDiv:hover .icons {
+    display: block;
+}
+
+.imageLockIcon {
+    position: absolute;
+    top: .6rem;
+    left: .6rem;
+    background-color: whitesmoke;
+    border-radius: 4rem;
+    padding: .3rem;
+}
+
+.imageEditIcon {
+    position: absolute;
+    bottom: .6rem;
+    right: .6rem;
+    background-color: rgba(245, 245, 245, 0.4);
+    border-radius: 4rem;
+    padding: .3rem;
+    cursor: pointer;
+}
+.imageEditIcon:hover {
+    background-color: whitesmoke;
+}
+
+.boardCard .details {
+    margin: 1rem .8rem;
+}
+
+.details p {
+    font-weight: 700;
+}
+
+.details .count {
+    color: grey;
+    font-size: smaller;
+    font-weight: 400;
+}

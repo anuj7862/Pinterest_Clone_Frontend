@@ -1,0 +1,128 @@
+
+.profilePage {
+    padding-top: 5rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+}
+
+.profilePage .profile {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    height: 40vh;
+    align-items: center;
+}
+
+.profile .profileLogo {
+    font-size: 3.5rem;
+    font-weight: 600;
+    background-color: whitesmoke;
+    border: 2px solid grey; 
+    border-radius: 5rem;
+    padding: 1.5rem 2.6rem;
+    text-align: center;
+    width: fit-content;
+    text-transform: capitalize;
+}
+
+.profile .name {
+    font-weight: 600;
+    font-size: xx-large;
+    margin-top: 1rem;
+}
+
+.profile .pinterestId {
+    color: rgb(90, 90, 90);
+    margin-top: .5rem;
+    text-align: center;
+    display: flex;
+    gap: .2rem;
+    align-items: center;
+    justify-content: center;
+}
+
+.profile .following {
+    font-weight: 600;
+    font-size: medium;
+    text-align: center;
+    margin-top: .5rem;
+}
+
+.profile .buttons {
+    margin-top: 1rem;
+    display: flex;
+    gap: 1rem;
+    justify-content: center;
+}
+
+.profile .profileBtn {
+    padding: .7rem;
+    background-color: whitesmoke;
+    color: black;
+    border-radius: 1.5rem;
+    border: 1px solid whitesmoke;
+    font-weight: 500;
+    font-size: medium;
+}
+
+.profile .profileBtn:hover {
+    background-color: rgb(180, 180, 180);
+}
+
+.profilePage .options {
+    padding: 2rem;
+    display: flex;
+    gap: 2rem;
+}
+
+.options .option {
+    font-weight: 600;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    cursor: pointer;
+}
+
+.option .underLine {
+    height: .2rem;
+    width: 100%;
+    border-radius: .5rem;
+    background-color: black;
+    margin-top: .2rem;
+}
+
+.profilePage .content {
+    height: 40vh;
+    padding: 3rem 4.8rem;
+    position: relative;
+    width: 100%;
+}
+
+.profilePlusIcon {
+    position: absolute;
+    top: 0rem;
+    right: 1.7rem;
+    width: 2.3rem;
+    height: 2.3rem;
+    border-radius: 4rem;
+}
+
+.profilePlusIcon:hover {
+    background-color: whitesmoke;
+}
+
+.content .createBox {
+    position: absolute;
+    top: 2rem;
+    right: 3rem;
+    z-index: 3;
+}
+
+.content .profileBoards {
+    display: flex;
+    gap: 2rem;
+    flex-wrap: wrap;
+}

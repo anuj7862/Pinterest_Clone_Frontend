@@ -8,6 +8,8 @@ import { useSignal } from '@preact/signals-react';
 import HomePage from './pages/HomePage/HomePage';
 import TodayPage from './pages/TodayPage/TodayPage';
 import CreatePage from './pages/CreatePage/CreatePage';
+import CreateBoard from './components/CreateBoard/CreateBoard';
+import ProfilePage from './pages/ProfilePage/ProfilePage';
 
 
 function App() {
@@ -18,7 +20,9 @@ function App() {
       {/* <SignupPage/> */}
       {/* <HomePage/> */}
       {/* <TodayPage/> */}
-      <CreatePage/>
+      {/* <CreatePage/> */}
+      {/* <CreateBoard/> */}
+      <ProfilePage/>
     </>
   )
 }
