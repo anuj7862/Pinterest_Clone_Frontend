@@ -29,10 +29,8 @@ function BoardCard({board}) {
                 <img src={greyImage} alt="" /> 
             }
             </div>
-            {/* <div className='icons'> */}
-                <IoMdLock className='imageLockIcon icons' size={'1.6rem'}/>
-                <MdEdit className='imageEditIcon icons' size={'1.6rem'}/>
-            {/* </div> */}
+            {board?.isLocked && <IoMdLock className='imageLockIcon' size={'1.6rem'}/>}
+            <MdEdit className='imageEditIcon icons' size={'1.6rem'}/>
         </div>
         <div className="details">
             <p>{board.name}</p>

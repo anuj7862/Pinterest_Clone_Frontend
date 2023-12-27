@@ -4,9 +4,12 @@ import React, { useState } from 'react';
 import { useRef } from 'react';
 import { FaPinterest } from "react-icons/fa";
 import { TbPlus } from "react-icons/tb";
+import {useNavigate} from 'react-router-dom';
+
 import BoardCard from '../../components/BoardCard/BoardCard';
 import Pin from '../../components/Pin/Pin';
 import SelectBoardBox from '../../components/SelectBoardBox/SelectBoardBox';
+import { copyText } from '../../utils/utility';
 
 import './ProfilePage.css';
 
@@ -32,8 +35,11 @@ function ProfilePage() {
         ],
     });
 
+    const navigate = useNavigate();
+
     const [optionFlag, setOptionFlag] = useState(true);
     const [plusFlag, setPlusFlag] = useState(false);
+    const [copyTextFlag, setCopyTextFlag] = useState(false);
     const plusIconRef = useRef(null);
 
     const handlePlus = (id) => {
@@ -41,7 +47,21 @@ function ProfilePage() {
         setPlusFlag(false);
         plusIconRef.current.blur();
         //redirect to that screen
-    }
+        if(id === '1')
+            navigate('/createpin');
+        else
+            navigate('/createBoard');
+    };
+
+    const handleShare = () => {
+        copyText(profileData.value.emailId.split('@')[0]);
+        console.log("share");
+        setCopyTextFlag(true);
+        let timeout = setTimeout(() => {
+            setCopyTextFlag(false);
+            clearTimeout(timeout);
+        }, 1000);
+    };
 
     return (
         <div className='profilePage'>
@@ -58,8 +78,13 @@ function ProfilePage() {
                     {profileData.value.following} following
                 </div>
                 <div className="buttons">
-                    <button className="profileBtn">
+                    <button className="profileBtn" onClick={handleShare}>
                         Share
+                        {copyTextFlag &&
+                         <div className="copy">
+                            Link Copied!
+                         </div>
+                        }
                     </button>
                     <button className="profileBtn">
                         Edit Profile

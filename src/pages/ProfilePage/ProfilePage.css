@@ -66,6 +66,18 @@
     border: 1px solid whitesmoke;
     font-weight: 500;
     font-size: medium;
+    position: relative;
+}
+
+.profileBtn .copy {
+    position: absolute;
+    top: .4rem;
+    left: -7rem;
+    font-size: smaller;
+    padding: .5rem;
+    border-radius: 2rem;
+    color: whitesmoke;
+    background-color: rgba(0, 0, 0, 0.4);
 }
 
 .profile .profileBtn:hover {

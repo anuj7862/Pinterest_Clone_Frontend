@@ -2,13 +2,13 @@ import { useSignal } from '@preact/signals-react';
 import { Switch } from '@mui/material';
 import React from 'react';
 import { useState } from 'react';
-
+import {useNavigate} from 'react-router-dom';
 import './CreateBoard.css';
 
 function CreateBoard({handleCreated}) {
     const [name, setName] = useState('');
     const [isLock, setIsLock] = useState(false);
-    
+    const navigate = useNavigate();
     const handleChange = (e) => {
         e.preventDefault();
         setName(e.target.value);
@@ -18,7 +18,8 @@ function CreateBoard({handleCreated}) {
     };
     const handleCreate = () => {
         console.log("board created" , name);
-        handleCreated();
+        //handleCreated();
+        navigate(-1);
     }
 
     return (

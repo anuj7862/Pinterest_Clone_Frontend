@@ -1,13 +1,14 @@
 import { useSignal } from '@preact/signals-react';
 import React from 'react';
 import { FaCheckCircle } from "react-icons/fa";
+import {useNavigate} from 'react-router-dom';
 
 import MyCard from '../../components/MyCard/MyCard';
-
 import './TodayPage.css';
 
 function TodayPage() {
-  const dateWiseCards = useSignal([
+    const navigate = useNavigate();
+    const dateWiseCards = useSignal([
     {
         date: '26 December 2023',
         cards: [
@@ -63,7 +64,7 @@ function TodayPage() {
             },
         ]
     }
-  ])
+    ])
 
   return (
     <div className='todayPage'>
@@ -87,7 +88,7 @@ function TodayPage() {
             <p>That's all for today!</p>
             <h4>Come back tomorrow for more inspiration</h4>
 
-            <div className="homeBtn">
+            <div className="homeBtn" onClick={() => navigate('/home')}>
                 Go to Home feed
             </div>
         </div>

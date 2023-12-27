@@ -4,10 +4,12 @@ import { useState } from 'react';
 import { FaFacebook } from "react-icons/fa";
 import { GrGoogle } from "react-icons/gr";
 import { IoMdCloseCircle } from "react-icons/io";
+import {useNavigate} from 'react-router-dom';
 
 import './LoginForm.css';
 
 function LoginForm(props) {
+    const navigate = useNavigate();
 
     const email = useSignal('');
     const password = useSignal('');
@@ -22,11 +24,15 @@ function LoginForm(props) {
     const handleSubmit = (e) => {
         e.preventDefault();
         if(isLogin){ //login request
-           
+            
             console.log(email.value, password.value);
+            props.handleClose();
+            navigate('/home');
         }
         else { //signup request
-            console.log(email.value, password.value, dob.value)
+            console.log(email.value, password.value, dob.value);
+            props.handleClose();
+            navigate('/home');
         }
     };
 

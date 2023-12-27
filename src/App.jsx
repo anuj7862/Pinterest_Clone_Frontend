@@ -1,15 +1,8 @@
-import { useState } from 'react'
-
+import React, { useState } from 'react';
+import { Outlet } from "react-router-dom";
 import './App.css';
 import Header from './components/Header/Header';
-import Pin from './components/Pin/Pin';
-import SignupPage from './pages/SignupPage/SignupPage';
-import { useSignal } from '@preact/signals-react';
-import HomePage from './pages/HomePage/HomePage';
-import TodayPage from './pages/TodayPage/TodayPage';
-import CreatePage from './pages/CreatePage/CreatePage';
-import CreateBoard from './components/CreateBoard/CreateBoard';
-import ProfilePage from './pages/ProfilePage/ProfilePage';
+
 
 
 function App() {
@@ -17,12 +10,14 @@ function App() {
   return (
     <>
       <Header/>
+      <Outlet/>
+      
       {/* <SignupPage/> */}
       {/* <HomePage/> */}
       {/* <TodayPage/> */}
       {/* <CreatePage/> */}
       {/* <CreateBoard/> */}
-      <ProfilePage/>
+      {/* <ProfilePage/> */}
     </>
   )
 }
