@@ -5,37 +5,29 @@ import { useRef } from 'react';
 import { FaPinterest } from "react-icons/fa";
 import { TbPlus } from "react-icons/tb";
 import {useNavigate} from 'react-router-dom';
+import { useSelector } from 'react-redux';
 
 import BoardCard from '../../components/BoardCard/BoardCard';
 import Pin from '../../components/Pin/Pin';
 import SelectBoardBox from '../../components/SelectBoardBox/SelectBoardBox';
-import { copyText } from '../../utils/utility';
+import { copyText } from '../../utils/Utility';
 
 import './ProfilePage.css';
+import { useEffect } from 'react';
 
 function ProfilePage() {
+    const navigate = useNavigate();
+    const authState = useSelector((state) => state.auth);
+    console.log(authState.user);
+    
+    useEffect(() => {
+        console.log('profile effect', authState.user);
+        if(authState.user === null)
+            navigate('/');
+    }, []);
+
     const plusOption = [{id: 1, name: 'Pin'},
                         {id: 2, name: 'Board'}];
-    const profileData = useSignal({
-        name: 'anuj tiwari',
-        emailId: 'anujtiwarmnnit@gmail.com',
-        following: 4,
-        boards: [
-            { id: 'board1', name: 'Board 1', pinCount: 4, isLocked: true, image: 'https://i.pinimg.com/75x75/8b/0b/e3/8b0be3749ca05848ce6b7d3fe5d3983f.jpg' },
-            { id: 'board2', name: 'Board 2', pinCount: 2, isLocked: false, image: 'https://i.pinimg.com/75x75/92/29/64/922964c806076e8975d494af90dcdffe.jpg' },
-            { id: 'board3', name: 'Board 3', pinCount: 6, isLocked: true, image: 'https://i.pinimg.com/75x75/8b/0b/e3/8b0be3749ca05848ce6b7d3fe5d3983f.jpg' },
-            { id: 'board4', name: 'Board 4', pinCount: 5, isLocked: false, image: 'https://i.pinimg.com/75x75/92/29/64/922964c806076e8975d494af90dcdffe.jpg' },
-        ],
-        pins: [
-            {id: 'pin1', title: 'pin1', description: 'desscription', image: 'https://i.pinimg.com/736x/84/6a/6f/846a6f06a19ebf9dca074eceacfab57b.jpg'},
-            {id: 'pin1', title: 'pin1', description: 'desscription', image: 'https://i.pinimg.com/474x/01/f0/30/01f0305e35b073a0e5e30f2fb13bb95b.jpg'},
-            {id: 'pin1', title: 'pin1', description: 'desscription', image: 'https://i.pinimg.com/564x/b1/ed/2f/b1ed2f13cff4f46ae09bae48a3cb5e8e.jpg'},
-            {id: 'pin1', title: 'pin1', description: 'desscription', image: 'https://i.pinimg.com/736x/84/6a/6f/846a6f06a19ebf9dca074eceacfab57b.jpg'},
-            {id: 'pin1', title: 'pin1', description: 'desscription', image: 'https://i.pinimg.com/564x/b1/ed/2f/b1ed2f13cff4f46ae09bae48a3cb5e8e.jpg'},
-        ],
-    });
-
-    const navigate = useNavigate();
 
     const [optionFlag, setOptionFlag] = useState(true);
     const [plusFlag, setPlusFlag] = useState(false);
@@ -54,7 +46,7 @@ function ProfilePage() {
     };
 
     const handleShare = () => {
-        copyText(profileData.value.emailId.split('@')[0]);
+        copyText(authState.user?.emailId.split('@')[0]);
         console.log("share");
         setCopyTextFlag(true);
         let timeout = setTimeout(() => {
@@ -67,15 +59,15 @@ function ProfilePage() {
         <div className='profilePage'>
             <div className="profile">
                 <div className="profileLogo">
-                    {profileData.value.emailId[0]}
+                    {authState.user?.emailId[0]}
                 </div>
-                <div className="name">{profileData.value.name}</div>
+                <div className="name">{authState.user?.name}</div>
                 <div className="pinterestId">
                     <FaPinterest className='pinterestIcon'/>
-                    <p>{profileData.value.emailId.split('@')[0]} </p>
+                    <p>{authState.user?.emailId.split('@')[0]} </p>
                 </div>
                 <div className="following">
-                    {profileData.value.following} following
+                    {authState.user?.following} following
                 </div>
                 <div className="buttons">
                     <button className="profileBtn" onClick={handleShare}>
@@ -117,7 +109,7 @@ function ProfilePage() {
                 </div>
                 {optionFlag ? 
                     <div className="profileBoards">
-                        {profileData.value.boards.map((board) => (
+                        {authState.user?.boards.map((board) => (
                             <BoardCard key={board.id} board={board}/>
                         ))
                         }
@@ -125,7 +117,7 @@ function ProfilePage() {
                     : 
                     <div className="profilePins">
                         <Masonry columns={5} spacing={1}>
-                        {profileData.value.pins.map((item, index) => (
+                        {authState.user?.pins.map((item, index) => (
                         <div key={index}>
                             {/* <Label>{index + 1}</Label> */}
                             <Pin image={item.image} description={item.description}/>

@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { PiDownloadSimpleBold } from "react-icons/pi";
 import { TbShare3 } from "react-icons/tb";
-import { copyText } from '../../utils/utility';
+import { copyText } from '../../utils/Utility';
 
 import './Pin.css';
 

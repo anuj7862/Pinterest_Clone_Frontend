@@ -12,7 +12,7 @@ const Header = () => {
   const [showForm, setShowForm] = useState(false);
   const loginFlag = useSignal('');
   
-  console.log("Header", showForm, loginFlag);
+  //console.log("Header", showForm, loginFlag);
   const handleClose = () => {
     setShowForm(false);  
   }

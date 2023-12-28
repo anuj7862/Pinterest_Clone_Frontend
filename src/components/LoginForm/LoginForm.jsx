@@ -5,20 +5,25 @@ import { FaFacebook } from "react-icons/fa";
 import { GrGoogle } from "react-icons/gr";
 import { IoMdCloseCircle } from "react-icons/io";
 import {useNavigate} from 'react-router-dom';
+import { useDispatch, useSelector } from 'react-redux';
 
+import { loginAsync, signupAsync } from '../../store/features/authSlice';
 import './LoginForm.css';
 
 function LoginForm(props) {
     const navigate = useNavigate();
+    const dispatch = useDispatch();
+    const authState = useSelector((state) => state.auth);
 
     const email = useSignal('');
     const password = useSignal('');
     const dob = useSignal('');
     const [isLogin, setIsLogin] = useState(props?.isLogin);
 
-    console.log(isLogin);
+    // console.log(isLogin);
     effect(() => {
-        console.log("effect", isLogin, email.value, password.value);
+        if(authState.user !== null)
+            navigate('/profile');
     });
 
     const handleSubmit = (e) => {
@@ -26,13 +31,17 @@ function LoginForm(props) {
         if(isLogin){ //login request
             
             console.log(email.value, password.value);
-            props.handleClose();
-            navigate('/home');
+            if(props?.close)
+                props.handleClose();
+            dispatch(loginAsync({ email: email.value, password: password.value}));
+            //navigate('/profile');
         }
         else { //signup request
             console.log(email.value, password.value, dob.value);
-            props.handleClose();
-            navigate('/home');
+            if(props?.close)
+                props.handleClose();
+            dispatch(signupAsync({email : email.value, password: password.value, dob: dob.value}));
+            //navigate('/profile');
         }
     };
 
