@@ -159,7 +159,7 @@ function PinForm() {
     
     return (
         <>
-            <div className="heading">
+            <div className="pinFormHeading">
                 Create Pin
                 <button className="publishBtn" onClick={handleSubmit} disabled={!isValidImage} 
                     style={{backgroundColor : `${isValidImage ? 'red' : 'grey'}`, cursor : `${isValidImage ? 'pointer' : 'no-drop'}`}}>

@@ -7,6 +7,7 @@ import {useDispatch, useSelector} from 'react-redux';
 import Pin from '../../components/Pin/Pin';
 import './HomePage.css';
 import { clearPinState, getAllPinAsync } from '../../store/features/pinSlice';
+import CustomLoader from '../../components/CustomLoader/CustomLoader';
 
 function HomePage() {
     const pinState = useSelector((state) => state.pin);
@@ -37,7 +38,7 @@ function HomePage() {
         setTimeout(() => {
         page.value = page.value + 1;
         dispatch(getAllPinAsync(page.value));
-        }, 4000);
+        }, 5000);
     }
 
     return (
@@ -46,7 +47,7 @@ function HomePage() {
             dataLength={pins.value.length}
             next={loadMore}
             hasMore={hasMore}
-            loader={<h4>Loading...</h4>}
+            loader={<CustomLoader/> }
             className="pinsDiv"
             >
                 <Masonry columns={5} spacing={1}>
