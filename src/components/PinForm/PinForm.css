@@ -162,6 +162,7 @@
 .moreOptions h4{
     display: flex;
     gap: .5rem;
+    cursor: pointer;
 }
 
 .moreOptions p {

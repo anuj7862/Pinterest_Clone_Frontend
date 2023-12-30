@@ -1,13 +1,13 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 import axios from 'axios';
 import MockResponse from '../../utils/MockResponse';
+import { mockResonseFlag } from '../../utils/Utility';
 
-const mockResonseFlag = true;
 
 // Async Thunks
 export const loginAsync = createAsyncThunk('auth/login', async (credentials) => {
   try {
-    console.log(credentials);
+    console.log("in side login aciton");
     if(mockResonseFlag){
         return MockResponse.userLoggedIn.response.payload.records[0];
     }
@@ -23,7 +23,7 @@ export const loginAsync = createAsyncThunk('auth/login', async (credentials) => 
 
 export const logoutAsync = createAsyncThunk('auth/logout', async () => {
   try {
-    const response = await axios.post('/logout', credentials);
+    const response = await axios.post('/logout');
     return response.data;
   } 
   catch (error) {

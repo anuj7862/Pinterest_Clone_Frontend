@@ -1,14 +1,21 @@
-import { useSignal } from '@preact/signals-react';
+import { effect, useSignal } from '@preact/signals-react';
 import { Switch } from '@mui/material';
 import React from 'react';
 import { useState } from 'react';
 import {useNavigate} from 'react-router-dom';
+import {useDispatch, useSelector} from 'react-redux';
+
 import './CreateBoard.css';
+import { clearBoardState, createBoardAsync } from '../../store/features/boardSlice';
+import { useEffect } from 'react';
 
 function CreateBoard({handleCreated}) {
     const [name, setName] = useState('');
     const [isLock, setIsLock] = useState(false);
     const navigate = useNavigate();
+    const boardState = useSelector((state) => state.board);
+    const dispatch = useDispatch();
+
     const handleChange = (e) => {
         e.preventDefault();
         setName(e.target.value);
@@ -18,9 +25,16 @@ function CreateBoard({handleCreated}) {
     };
     const handleCreate = () => {
         console.log("board created" , name);
-        //handleCreated();
-        navigate(-1);
+        dispatch(createBoardAsync(name));
     }
+
+    useEffect(() => {
+        if(boardState.boardCreated !== null){
+            console.log(boardState.boardCreated, "effect");
+            dispatch(clearBoardState('boardCreated'));
+            navigate(-1);
+        }
+    }, [boardState.boardCreated]);
 
     return (
         <div className='createBoardBox'>

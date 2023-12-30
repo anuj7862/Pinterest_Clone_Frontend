@@ -11,3 +11,5 @@ export const copyText = (text) => {
         document.body.removeChild(textarea);
 
 }
+
+export const mockResonseFlag = true;

@@ -9,6 +9,10 @@
     border-radius: 1.5rem;
 }
 
+.boardCard img {
+    border: .2px solid black;
+}
+
 .imageDiv .imageDiv2 {
     display: flex;
     flex-direction: column;
@@ -70,3 +74,4 @@
     font-size: smaller;
     font-weight: 400;
 }
+

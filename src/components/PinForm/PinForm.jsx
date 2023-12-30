@@ -1,37 +1,35 @@
-import { Radio, Switch } from '@mui/material';
-import { useSignal } from '@preact/signals-react';
+import { Switch } from '@mui/material';
+import { effect, useSignal } from '@preact/signals-react';
 import React, { useRef } from 'react';
 import { useState } from 'react';
 import { FaChevronDown, FaChevronUp } from "react-icons/fa";
 import { FaCircleChevronRight } from "react-icons/fa6";
 import { MdEdit } from "react-icons/md";
 import { IoCloseSharp } from "react-icons/io5";
+import {useNavigate} from 'react-router-dom';
+import {useDispatch, useSelector}  from 'react-redux';
 
 import SelectBoardBox from '../SelectBoardBox/SelectBoardBox';
 
 import './PinForm.css';
+import { clearPinState, createPinAsync } from '../../store/features/pinSlice';
+import { useEffect } from 'react';
+import { clearTagState, getTagListAsync } from '../../store/features/tagSlice';
 
 function PinForm() {
+    const authState = useSelector((state) => state.auth);
+    const tagState = useSelector((state) => state.tag);
+    const boards = authState.user?.boards ? authState.user.boards : [];
 
-    const boards = useSignal([
-        { id: 'board1', name: 'Board 1', isLocked: true, image: 'https://i.pinimg.com/75x75/8b/0b/e3/8b0be3749ca05848ce6b7d3fe5d3983f.jpg' },
-        { id: 'board2', name: 'Board 2', isLocked: false, image: 'https://i.pinimg.com/75x75/92/29/64/922964c806076e8975d494af90dcdffe.jpg' },
-        { id: 'board3', name: 'Board 3', isLocked: true, image: 'https://i.pinimg.com/75x75/8b/0b/e3/8b0be3749ca05848ce6b7d3fe5d3983f.jpg' },
-        { id: 'board4', name: 'Board 4', isLocked: false, image: 'https://i.pinimg.com/75x75/92/29/64/922964c806076e8975d494af90dcdffe.jpg' },
-    ]);
-
-    const topics = useSignal([
-        {id: 'topic1', name: 'topic1'},
-        {id: 'topic2', name: 'topic2'},
-        {id: 'topic3', name: 'topic3'},
-        {id: 'topic4', name: 'topic4'},
-        {id: 'topic5', name: 'topic5'},
-        {id: 'topic6', name: 'topic6'},
-    ]);
+    const topics = useSignal([]);
 
     const title= useSignal('');
     const description = useSignal('');
     const board = useSignal({name: 'Choose a board'});
+
+    const navigate = useNavigate();
+    const dispatch = useDispatch();
+    const pinState = useSelector((state) => state.pin);
 
     const [taggedTopics,setTaggedTopics] = useState([]);
     const [allowComments, setAllowComments] = useState(true);
@@ -47,14 +45,48 @@ function PinForm() {
     const boardDiv = useRef(null);
     const topicDiv = useRef(null);
 
+    const onLoad = useSignal(true);
+
+    useEffect(() => {
+        if(onLoad.value){
+            dispatch(getTagListAsync());
+        }
+    }, [onLoad]);
+
     const handleSubmit = () => {
-        console.log("title :", title.value, "imageLink : ", imageLink, "description :" , description.value, "board : ", board.value, "tagged Topics" , taggedTopics, "allowCom : ", allowComments );
+        const data = {
+            "title" : title.value,
+            "imageLink": imageLink,
+            "description" : description.value,
+            "board" : board.value,
+            "tagged Topics" : taggedTopics,
+            "allowCom" : allowComments 
+        };
+        console.log("craete pin" , data);
+        dispatch(createPinAsync());
     }
+
+    effect(() => {
+        if(pinState.pinCreated){
+            console.log("effect create pin");
+            dispatch(clearPinState('pinCreated'));
+            navigate(-1);
+        }
+        if(tagState.tagList) {
+            console.log("effect tag list");
+            topics.value = tagState.tagList.tagList;
+            dispatch(clearTagState('tagList'));
+        }
+    })
+
     const onBoardSelect = (id) => {
-        let selected = boards.value.find(ele => ele.id === id); //find board by id
-        board.value = selected;
-        setIsBoardFocus(false);
-        boardDiv.current.blur();
+        if(id !== ''){
+            let selected = boards.find(ele => ele.id === id); //find board by id
+            board.value = selected;
+            console.log(board.value, id);
+            setIsBoardFocus(false);
+            boardDiv.current.blur();
+        }
     } 
     const onTopicSelect = (id) => {
 
@@ -77,7 +109,7 @@ function PinForm() {
         setAllowComments(!allowComments);
     }
     const handleShowProducts = () =>{
-        setShowProducts(!allowComments);
+        setShowProducts(!showProducts);
     }
     const handleInputChange = (e) => {
         const inputValue = e.target.value;
@@ -182,7 +214,7 @@ function PinForm() {
                             <FaChevronDown className='downArrow' size={'1.2rem'}/>
                         {isBoardFocus &&
                             <div className="optionsBox">
-                                <SelectBoardBox onSelect={onBoardSelect} boxName="board" array={boards.value}/>
+                                <SelectBoardBox onSelect={onBoardSelect} boxName="board" array={boards}/>
                             </div>
                         }
                         </div>
@@ -194,7 +226,7 @@ function PinForm() {
                         >   Select a Tag
                             {isTopicFocus &&
                                 <div className="optionsBox">
-                                    <SelectBoardBox onSelect={onTopicSelect} boxName="topic" array={topics.value}/>
+                                    <SelectBoardBox onSelect={onTopicSelect} boxName="topic" array={topics.value} title='All Topics'/>
                                 </div>
                             }
                         </div>
