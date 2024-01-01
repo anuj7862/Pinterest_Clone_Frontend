@@ -15,7 +15,7 @@ function LoginForm(props) {
     const dispatch = useDispatch();
     const authState = useSelector((state) => state.auth);
 
-    const email = useSignal('');
+    const emailId = useSignal('');
     const password = useSignal('');
     const dob = useSignal('');
     const [isLogin, setIsLogin] = useState(props?.isLogin);
@@ -28,19 +28,20 @@ function LoginForm(props) {
 
     const handleSubmit = (e) => {
         e.preventDefault();
+        console.log(dob.value);
         if(isLogin){ //login request
             
-            console.log(email.value, password.value);
+            console.log(emailId.value, password.value);
             if(props?.close)
                 props.handleClose();
-            dispatch(loginAsync({ email: email.value, password: password.value}));
+            dispatch(loginAsync({ username: emailId.value.split('@')[0], password: password.value}));
             //navigate('/profile');
         }
         else { //signup request
-            console.log(email.value, password.value, dob.value);
+            console.log(emailId.value, password.value, dob.value);
             if(props?.close)
                 props.handleClose();
-            dispatch(signupAsync({email : email.value, password: password.value, dob: dob.value}));
+            dispatch(signupAsync({emailId : emailId.value, username: emailId.value.split('@')[0], password: password.value, dob: dob.value}));
             //navigate('/profile');
         }
     };
@@ -60,8 +61,8 @@ function LoginForm(props) {
             {isLogin &&
               <div className="loginForm">
                 <form onSubmit={handleSubmit}>
-                    <label htmlFor="email">Email address :</label>
-                    <input type="email"  value={email} name="email" placeholder='Email' onChange={(e) => {email.value = e.target.value}} required />
+                    <label htmlFor="emailId">Email address :</label>
+                    <input type="email"  value={emailId} name="emailId" placeholder='Email' onChange={(e) => {emailId.value = e.target.value}} required />
                     <label htmlFor="password">Password :</label>
                     <input type="password"  value={password} name="password" placeholder='Password' onChange={(e) => {password.value = e.target.value}} required />
                     {/* <a href=""></a> */}
@@ -72,8 +73,8 @@ function LoginForm(props) {
             {!isLogin &&
               <div className="loginForm">
                 <form onSubmit={handleSubmit}>
-                    <label htmlFor="email">Email :</label>
-                    <input type="email"  value={email} name="email" placeholder='Email address' onChange={(e) => {email.value = e.target.value}} required />
+                    <label htmlFor="emailId">Email :</label>
+                    <input type="email"  value={emailId} name="emailId" placeholder='Email address' onChange={(e) => {emailId.value = e.target.value}} required />
                     <label htmlFor="password">Password :</label>
                     <input type="password"  value={password} name="password" placeholder='Create a password' onChange={(e) => {password.value = e.target.value}} required />
                     <label>Date of Birth:</label>
@@ -101,12 +102,12 @@ function LoginForm(props) {
             </p>
 
             {isLogin &&
-                <div className='switchBtn' onClick={() => {setIsLogin(false); email.value = ''; password.value= ''; dob.value = '';}}>
+                <div className='switchBtn' onClick={() => {setIsLogin(false); emailId.value = ''; password.value= ''; dob.value = '';}}>
                     Not on Pinterest yet? Sign up
                 </div>
             }
             {!isLogin &&
-                <div className='switchBtn' onClick={() => {setIsLogin(true); email.value = ''; password.value= ''; dob.value = '';}}>
+                <div className='switchBtn' onClick={() => {setIsLogin(true); emailId.value = ''; password.value= ''; dob.value = '';}}>
                     Already a member? Log in
                 </div>
             }

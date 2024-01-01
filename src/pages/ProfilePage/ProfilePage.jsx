@@ -61,7 +61,7 @@ function ProfilePage() {
                 <div className="profileLogo">
                     {authState.user?.emailId[0]}
                 </div>
-                <div className="name">{authState.user?.name}</div>
+                <div className="name">{authState.user?.username}</div>
                 <div className="pinterestId">
                     <FaPinterest className='pinterestIcon'/>
                     <p>{authState.user?.emailId.split('@')[0]} </p>

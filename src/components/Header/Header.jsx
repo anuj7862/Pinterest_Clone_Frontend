@@ -117,7 +117,7 @@ const Header = () => {
                   onBlur={() => { console.log('hellowww'); setShowMessage(false); setShowNotification(false);}}
               /> 
               <div className="profileBtn" onClick={handleProfileBtn}>
-                <p>{userState.name[0]} </p>
+                <p>{userState.username[0]} </p>
               </div>
               <span className="header-btn signup" onClick={handleLogout} >Logout</span>
               {(showMessage || showNotification) &&

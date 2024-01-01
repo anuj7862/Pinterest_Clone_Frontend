@@ -1,5 +1,6 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 import axios from 'axios';
+import { axiosInstances, serviceProps } from '../../envConfig';
 import MockResponse from '../../utils/MockResponse';
 import { mockResonseFlag } from '../../utils/Utility';
 
@@ -8,22 +9,33 @@ import { mockResonseFlag } from '../../utils/Utility';
 export const loginAsync = createAsyncThunk('auth/login', async (credentials) => {
   try {
     console.log("in side login aciton");
+    let inputRequestBody = credentials;
+    let inputHeader = null;
+    let serviceURLInstance  = axiosInstances.service;
+
+    const serviceUri = serviceProps.authService.loginService.uri;
+
     if(mockResonseFlag){
         return MockResponse.userLoggedIn.response.payload.records[0];
     }
     else {
-        const response = await axios.post('/login', credentials);
-        return response.payload.records[0];
+       const response =  await serviceURLInstance.post(serviceUri, inputRequestBody);
+       return response.data.user;
     }
   } 
   catch (error) {
-    throw error.response.data.message || 'Login failed';
+    console.log("catch err");
+    throw error.response.data.error || 'Login failed';
   }
 });
 
 export const logoutAsync = createAsyncThunk('auth/logout', async () => {
   try {
-    const response = await axios.post('/logout');
+    let serviceURLInstance  = axiosInstances.service;
+
+    const serviceUri = serviceProps.authService.logoutService.uri;
+
+    const response = await serviceURLInstance.get(serviceUri);
     return response.data;
   } 
   catch (error) {
@@ -33,18 +45,23 @@ export const logoutAsync = createAsyncThunk('auth/logout', async () => {
 
 export const signupAsync = createAsyncThunk('auth/signup', async (userData) => {
   try {
-    console.log(userData);
+    console.log('in side signup action');
+    let serviceURLInstance  = axiosInstances.service;
+    let inputRequestBody = userData;
+    let inputHeader = null;
+    const serviceUri = serviceProps.authService.signupService.uri;
+
     if(mockResonseFlag){
         return MockResponse.userLoggedIn.response.payload.records[0];
     }
     else {
-        const response = await axios.post('/signup', userData);
-        return response.payload.records[0];
+        const response = await serviceURLInstance.post(serviceUri, inputRequestBody);
+        return response.data.user;
     }
     
   } 
   catch (error) {
-    throw error.response?.data.message || 'Signup failed';
+    throw error.response.data.message || 'Signup failed';
   }
 });
 
