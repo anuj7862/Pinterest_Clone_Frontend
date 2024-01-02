@@ -26,7 +26,7 @@ function HomePage() {
         if(authState.user === null) //if user not loggedin
             navigate('/');
     }, []);
-    
+
     useEffect(() => {
         if(onLoad){
             dispatch(getAllPinAsync(page.value));
@@ -51,7 +51,7 @@ function HomePage() {
         setTimeout(() => {
         page.value = page.value + 1;
         dispatch(getAllPinAsync(page.value));
-        }, 100);
+        }, 800);
     }
 
     return (

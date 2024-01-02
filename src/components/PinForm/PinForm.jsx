@@ -35,7 +35,7 @@ function PinForm() {
     const [taggedTopics,setTaggedTopics] = useState([]);
     const [allowComments, setAllowComments] = useState(true);
     const [showProducts, setShowProducts] = useState(true);
-    const [isBoardFocus, setIsBoardFocus] = useState(true);
+    const [isBoardFocus, setIsBoardFocus] = useState(false);
     const [isTopicFocus, setIsTopicFocus] = useState(false);
     const [isMoreOption, setIsMoreOption] = useState(false);
 

@@ -13,7 +13,6 @@ function CreatePage() {
   useEffect(() => {
     if(authState.user === null) //if user not loggedin
         navigate('/');
-        return;
   }, []);
 
   return (
