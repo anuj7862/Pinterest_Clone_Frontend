@@ -8,26 +8,26 @@ import { clearBoardState, getBoardByIdAsync } from '../../store/features/boardSl
 import './BoardCard.css';
 
 function BoardCard({board}) {
-  const boardState = useSelector((state) => state.board);
-  const dispatch = useDispatch();
-  const pins = useSignal([]);
+  // const boardState = useSelector((state) => state.board);
+  // const dispatch = useDispatch();
+  const pins = useSignal(board?.pins);
   const greyImage = 'https://i.pinimg.com/564x/92/3c/50/923c508dac22439e4f56502f7181e040.jpg';
+  console.log("pins", pins.value?.length, board);
+  // const onLoad = useSignal(true);
 
-  const onLoad = useSignal(true);
+  // useEffect(() => {
+  //   if(onLoad.value){
+  //     dispatch(getBoardByIdAsync(board?.id));
+  //     onLoad.value = false;
+  //   }
+  // },[onLoad]);
 
-  useEffect(() => {
-    if(onLoad.value){
-      dispatch(getBoardByIdAsync(board?.id));
-      onLoad.value = false;
-    }
-  },[onLoad]);
-
-  useEffect(() => {
-    if(boardState.getBoardById !== null){
-      pins.value = boardState.getBoardById.pins;
-      dispatch(clearBoardState('getBoardById'));
-    }
-  });
+  // useEffect(() => {
+  //   if(boardState.getBoardById !== null){
+  //     pins.value = boardState.getBoardById.pins;
+  //     dispatch(clearBoardState('getBoardById'));
+  //   }
+  // });
 
   return (
     <div className='boardCard' key={board?.id}>
@@ -51,7 +51,7 @@ function BoardCard({board}) {
         </div>
         <div className="details">
             <p>{board.name}</p>
-            <p className='count'>{board.pinCount} Pins</p>
+            <p className='count'>{pins.value?.length} Pins</p>
         </div>
     </div>
   )

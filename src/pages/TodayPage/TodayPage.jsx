@@ -19,7 +19,7 @@ function TodayPage() {
     useEffect(() => {
         if(onLoad.value){
             onLoad.value = false;
-            dispatch(getAllBoardAsync());
+            dispatch(getAllBoardAsync('2024-01-01'));
         }
     }, [onLoad]);
 
@@ -34,13 +34,13 @@ function TodayPage() {
     <div className='todayPage'>
         <h1>Stay inspired</h1>
         {dateWiseCards.value.map((data) => {
-            return(<div key={data.id}>
+            return(<div key={data._id}>
                 <h2 className='dateHeading'>
-                    {data.date}
+                    {data._id}
                 </h2>
                 <div className='cards'>
                     {data.cards.map((card) => (
-                        <MyCard key={card.id} image={card.image} title={card.title} description={card.description} />
+                        <MyCard key={card._id} image={card.image} title={card.title} description={card.description} />
                      ))
                     }
                 </div>

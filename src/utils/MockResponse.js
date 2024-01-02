@@ -5,14 +5,100 @@
             "payload" : {
                 "records" : [
                     {
-                        name: 'anuj tiwari',
-                        emailId: 'snujtiwarmnnit@gmail.com',
+                        _id: "65926d696e6f34d16456c3a3",
+                        username: "baba",
+                        emailId: "baba@gmail.com",
+                        following: 0,
                         following: 100,
+                        dob : "2024-01-01T00:00:00.000Z",
                         boards: [
-                            { id: 'board1', name: 'Board 1', pinCount: 4, isLocked: true, image: 'https://i.pinimg.com/75x75/8b/0b/e3/8b0be3749ca05848ce6b7d3fe5d3983f.jpg' },
-                            { id: 'board2', name: 'Board 2', pinCount: 2, isLocked: false, image: 'https://i.pinimg.com/75x75/92/29/64/922964c806076e8975d494af90dcdffe.jpg' },
-                            { id: 'board3', name: 'Board 3', pinCount: 6, isLocked: true, image: 'https://i.pinimg.com/75x75/8b/0b/e3/8b0be3749ca05848ce6b7d3fe5d3983f.jpg' },
-                            { id: 'board4', name: 'Board 4', pinCount: 5, isLocked: false, image: 'https://i.pinimg.com/75x75/92/29/64/922964c806076e8975d494af90dcdffe.jpg' },
+                            { id: 'board1', name: 'Board 1', "pins": [                    {
+                        "_id": "6592b29c26fca11f74fc699b",
+                        "board": "6592ae6fc48b3fa4df448e95",
+                        "tags": [],
+                        "createdBy": "65926d696e6f34d16456c3a3",
+                        "allowComments": true,
+                        "showSimilar": true,
+                        "image": "https://i.pinimg.com/474x/e6/26/0f/e6260f8855a00d5d72d1a6467dddbb0a.jpg",
+                        "__v": 0
+                    },
+                    {
+                        "_id": "6592b4220aaf33eb239bf7c3",
+                        "board": "6592ae6fc48b3fa4df448e95",
+                        "tags": [],
+                        "createdBy": "65926d696e6f34d16456c3a3",
+                        "allowComments": true,
+                        "showSimilar": true,
+                        "image": "https://i.pinimg.com/474x/c1/ee/c4/c1eec43d8abd81ca4891515a972b7f43.jpg",
+                        "__v": 0
+                    }
+                ], pinCount: 4, isLocked: true, image: 'https://i.pinimg.com/75x75/8b/0b/e3/8b0be3749ca05848ce6b7d3fe5d3983f.jpg' },
+                            { id: 'board2', name: 'Board 2', "pins": [
+                    {
+                        "_id": "6592b29c26fca11f74fc699b",
+                        "board": "6592ae6fc48b3fa4df448e95",
+                        "tags": [],
+                        "createdBy": "65926d696e6f34d16456c3a3",
+                        "allowComments": true,
+                        "showSimilar": true,
+                        "image": "https://i.pinimg.com/474x/e6/26/0f/e6260f8855a00d5d72d1a6467dddbb0a.jpg",
+                        "__v": 0
+                    },
+                    {
+                        "_id": "6592b4220aaf33eb239bf7c3",
+                        "board": "6592ae6fc48b3fa4df448e95",
+                        "tags": [],
+                        "createdBy": "65926d696e6f34d16456c3a3",
+                        "allowComments": true,
+                        "showSimilar": true,
+                        "image": "https://i.pinimg.com/474x/c1/ee/c4/c1eec43d8abd81ca4891515a972b7f43.jpg",
+                        "__v": 0
+                    }
+                ], pinCount: 2, isLocked: false, image: 'https://i.pinimg.com/75x75/92/29/64/922964c806076e8975d494af90dcdffe.jpg' },
+                            { id: 'board3', name: 'Board 3', "pins": [
+                    {
+                        "_id": "6592b29c26fca11f74fc699b",
+                        "board": "6592ae6fc48b3fa4df448e95",
+                        "tags": [],
+                        "createdBy": "65926d696e6f34d16456c3a3",
+                        "allowComments": true,
+                        "showSimilar": true,
+                        "image": "https://i.pinimg.com/474x/e6/26/0f/e6260f8855a00d5d72d1a6467dddbb0a.jpg",
+                        "__v": 0
+                    },
+                    {
+                        "_id": "6592b4220aaf33eb239bf7c3",
+                        "board": "6592ae6fc48b3fa4df448e95",
+                        "tags": [],
+                        "createdBy": "65926d696e6f34d16456c3a3",
+                        "allowComments": true,
+                        "showSimilar": true,
+                        "image": "https://i.pinimg.com/474x/c1/ee/c4/c1eec43d8abd81ca4891515a972b7f43.jpg",
+                        "__v": 0
+                    }
+                ], pinCount: 6, isLocked: true, image: 'https://i.pinimg.com/75x75/8b/0b/e3/8b0be3749ca05848ce6b7d3fe5d3983f.jpg' },
+                            { id: 'board4', name: 'Board 4', "pins": [
+                    {
+                        "_id": "6592b29c26fca11f74fc699b",
+                        "board": "6592ae6fc48b3fa4df448e95",
+                        "tags": [],
+                        "createdBy": "65926d696e6f34d16456c3a3",
+                        "allowComments": true,
+                        "showSimilar": true,
+                        "image": "https://i.pinimg.com/474x/e6/26/0f/e6260f8855a00d5d72d1a6467dddbb0a.jpg",
+                        "__v": 0
+                    },
+                    {
+                        "_id": "6592b4220aaf33eb239bf7c3",
+                        "board": "6592ae6fc48b3fa4df448e95",
+                        "tags": [],
+                        "createdBy": "65926d696e6f34d16456c3a3",
+                        "allowComments": true,
+                        "showSimilar": true,
+                        "image": "https://i.pinimg.com/474x/c1/ee/c4/c1eec43d8abd81ca4891515a972b7f43.jpg",
+                        "__v": 0
+                    }
+                ], pinCount: 5, isLocked: false, image: 'https://i.pinimg.com/75x75/92/29/64/922964c806076e8975d494af90dcdffe.jpg' },
                         ],
                         pins: [
                             {id: 'pin1', title: 'pin1', description: 'desscription', image: 'https://i.pinimg.com/736x/84/6a/6f/846a6f06a19ebf9dca074eceacfab57b.jpg'},
@@ -200,8 +286,7 @@
             "payload" : {
                 "records" : [
                     {
-                       boardName: 'board1',
-                       boardId : 'board1',
+                       name: 'board1',
                        pins: [
                         { id: 1, image: 'https://i.pinimg.com/474x/01/f0/30/01f0305e35b073a0e5e30f2fb13bb95b.jpg', description: 'a'},
                         // { id: 2, image: 'https://i.pinimg.com/564x/b1/ed/2f/b1ed2f13cff4f46ae09bae48a3cb5e8e.jpg', description: 'a'},

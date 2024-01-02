@@ -18,16 +18,16 @@ import { useEffect } from 'react';
 function ProfilePage() {
     const navigate = useNavigate();
     const authState = useSelector((state) => state.auth);
-    console.log(authState.user);
+    //console.log(authState.user);
     
     useEffect(() => {
         console.log('profile effect', authState.user);
-        if(authState.user === null)
+        if(authState.user === null) //if user not loggedin
             navigate('/');
     }, []);
 
-    const plusOption = [{id: 1, name: 'Pin'},
-                        {id: 2, name: 'Board'}];
+    const plusOption = [{_id: 1, name: 'Pin'},
+                        {_id: 2, name: 'Board'}];
 
     const [optionFlag, setOptionFlag] = useState(true);
     const [plusFlag, setPlusFlag] = useState(false);
@@ -35,7 +35,7 @@ function ProfilePage() {
     const plusIconRef = useRef(null);
 
     const handlePlus = (id) => {
-        console.log(id);
+        console.log("@@@@@@@@@@", id);
         setPlusFlag(false);
         plusIconRef.current.blur();
         //redirect to that screen
@@ -110,7 +110,7 @@ function ProfilePage() {
                 {optionFlag ? 
                     <div className="profileBoards">
                         {authState.user?.boards.map((board) => (
-                            <BoardCard key={board.id} board={board}/>
+                            <BoardCard key={board._id} board={board}/>
                         ))
                         }
                     </div>

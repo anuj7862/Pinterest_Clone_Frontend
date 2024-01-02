@@ -10,7 +10,7 @@ import { AiFillMessage } from "react-icons/ai";
 
 import LoginForm from '../LoginForm/LoginForm';
 import './Header.css';
-import { logoutAsync } from '../../store/features/authSlice';
+import { clearAuthState, logoutAsync } from '../../store/features/authSlice';
 import { useRef } from 'react';
 
 const Header = () => {
@@ -35,6 +35,7 @@ const Header = () => {
 
   const handleLogout = () => {
     logoutFlag.value = true;
+    dispatch(clearAuthState('user'));
     dispatch(logoutAsync());
     navigate('/');
   }

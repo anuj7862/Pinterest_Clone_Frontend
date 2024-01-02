@@ -8,14 +8,33 @@ import {useDispatch, useSelector} from 'react-redux';
 import './CreateBoard.css';
 import { clearBoardState, createBoardAsync } from '../../store/features/boardSlice';
 import { useEffect } from 'react';
+import { userDetailsAsync } from '../../store/features/authSlice';
 
 function CreateBoard({handleCreated}) {
     const [name, setName] = useState('');
     const [isLock, setIsLock] = useState(false);
     const navigate = useNavigate();
     const boardState = useSelector((state) => state.board);
+    const authState = useSelector((state) => state.auth);
     const dispatch = useDispatch();
 
+    useEffect(() => {
+        if(authState.user === null) //if user not loggedin
+            navigate('/');
+    }, []);
+    
+    useEffect(() => {
+        if(boardState.boardCreated !== null){
+            console.log(boardState.boardCreated, "effect");
+            dispatch(clearBoardState('boardCreated'));
+            dispatch(userDetailsAsync(authState.user._id));
+            navigate(-1);
+        }
+    }, [boardState.boardCreated]);
+
+    if(authState.user === null){ // if user not logged in
+        navigate('/');
+    }
     const handleChange = (e) => {
         e.preventDefault();
         setName(e.target.value);
@@ -25,16 +44,13 @@ function CreateBoard({handleCreated}) {
     };
     const handleCreate = () => {
         console.log("board created" , name);
-        dispatch(createBoardAsync(name));
-    }
-
-    useEffect(() => {
-        if(boardState.boardCreated !== null){
-            console.log(boardState.boardCreated, "effect");
-            dispatch(clearBoardState('boardCreated'));
-            navigate(-1);
+        const data = { 
+            name: name, 
+            isLocked : isLock,
+            createdBy : authState.user?._id,
         }
-    }, [boardState.boardCreated]);
+        dispatch(createBoardAsync(data));
+    }
 
     return (
         <div className='createBoardBox'>

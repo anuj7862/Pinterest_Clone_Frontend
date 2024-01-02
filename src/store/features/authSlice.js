@@ -1,5 +1,4 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
-import axios from 'axios';
 import { axiosInstances, serviceProps } from '../../envConfig';
 import MockResponse from '../../utils/MockResponse';
 import { mockResonseFlag } from '../../utils/Utility';
@@ -65,6 +64,21 @@ export const signupAsync = createAsyncThunk('auth/signup', async (userData) => {
   }
 });
 
+export const userDetailsAsync = createAsyncThunk('auth/userDetials', async (userId) => {
+  console.log('in side userDetails action');
+  let serviceURLInstance  = axiosInstances.service;
+  let inputHeader = null;
+  const serviceUri = `${serviceProps.authService.userDetails.uri}?userId=${userId}`;
+
+  if(mockResonseFlag){
+      return MockResponse.userLoggedIn.response.payload.records[0];
+  }
+  else {
+    const response = await serviceURLInstance.get(serviceUri);
+    return response.data.user;
+  }
+});
+
 // Slice
 const authSlice = createSlice({
   name: 'auth',
@@ -76,6 +90,9 @@ const authSlice = createSlice({
   reducers: {
     clearError: (state) => {
       state.error = null;
+    },
+    clearAuthState : (state, action) => {
+      state[action.payload] = null;
     },
   },
   extraReducers: (builder) => {
@@ -94,10 +111,6 @@ const authSlice = createSlice({
         state.loading = false;
         state.error = action.error.message || 'Login failed';
       })
-      .addCase(logoutAsync.pending, (state) => {
-        state.loading = true;
-        state.error = null;
-      })
       .addCase(logoutAsync.fulfilled, (state) => {
         state.user = null;
         state.loading = false;
@@ -108,10 +121,6 @@ const authSlice = createSlice({
         state.loading = false;
         state.error = action.error.message || 'Logout failed';
       })
-      .addCase(signupAsync.pending, (state) => {
-        state.loading = true;
-        state.error = null;
-      })
       .addCase(signupAsync.fulfilled, (state, action) => {
         state.user = action.payload;
         state.loading = false;
@@ -121,9 +130,19 @@ const authSlice = createSlice({
         state.user = null;
         state.loading = false;
         state.error = action.error.message || 'Signup failed';
+      })
+      .addCase(userDetailsAsync.fulfilled, (state, action) => {
+        state.user = action.payload;
+        state.loading = false;
+        state.error = false;
+      })
+      .addCase(userDetailsAsync.rejected , (state, aciotn) => {
+        state.user = null;
+        state.loading = false;
+        state.error = actoin.error.message || 'user details server error';
       });
   },
 });
 
-export const { clearError } = authSlice.actions;
+export const { clearError, clearAuthState } = authSlice.actions;
 export default authSlice.reducer;

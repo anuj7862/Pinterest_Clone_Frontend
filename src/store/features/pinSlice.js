@@ -1,18 +1,23 @@
 import {createSlice, createAsyncThunk} from '@reduxjs/toolkit';
 import MockResponse from '../../utils/MockResponse';
 import { mockResonseFlag } from '../../utils/Utility';
-import axios from 'axios';
+import { axiosInstances, serviceProps } from '../../envConfig';
 
 export const createPinAsync = createAsyncThunk('pin/create', async(data) => {
     try {
         console.log('in side create pin action');
+        let inputRequestBody = data;
+        let inputHeader = null;
+        let serviceURLInstance  = axiosInstances.service;
+
+        const serviceUri = serviceProps.pinService.createPin.uri;
         if(mockResonseFlag){
             console.log('mock');
             return MockResponse.pinCreated.response.payload.records[0];
         }
         else {
-            const response = await axios.post('/createPin', data);
-            return response.payload.records[0];
+            const response =  await serviceURLInstance.post(serviceUri, inputRequestBody);
+            return response.data;
         }
     }
     catch (error) {
@@ -20,15 +25,18 @@ export const createPinAsync = createAsyncThunk('pin/create', async(data) => {
     }
 });
 
-export const getAllPinAsync = createAsyncThunk('pin/allPin', async({page}) => {
+export const getAllPinAsync = createAsyncThunk('pin/allPin', async(page) => {
     try {
         console.log('in side get all pin action');
+        let serviceURLInstance  = axiosInstances.service;
+        const serviceUri = `${serviceProps.pinService.getAllPin.uri}?page=${page}`;
+
         if(mockResonseFlag){
             return MockResponse.getAllPin.response.payload.records[0];
         }
         else {
-            const response = await axios.get(`/getAllPin?${page}`);
-            return response.payload.records[0];
+            const response =  await serviceURLInstance.get(serviceUri);
+            return response.data;
         }
     }
     catch (error) {

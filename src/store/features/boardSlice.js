@@ -1,17 +1,23 @@
 import {createSlice, createAsyncThunk} from '@reduxjs/toolkit';
 import MockResponse from '../../utils/MockResponse';
 import { mockResonseFlag } from '../../utils/Utility';
-import axios from 'axios';
+import { axiosInstances, serviceProps } from '../../envConfig';
 
 export const createBoardAsync = createAsyncThunk('board/create', async(data) =>{
     try {
         console.log('in side create board action');
+        let inputRequestBody = data;
+        let inputHeader = null;
+        let serviceURLInstance  = axiosInstances.service;
+
+        const serviceUri = serviceProps.boardService.createBoard.uri;
+
         if(mockResonseFlag){
             return MockResponse.boardCreated.response.payload.records[0];
         }
         else{
-            const response = await axios.post('/createBoard', data);
-            return response.payload.records[0];
+            const response =  await serviceURLInstance.post(serviceUri, inputRequestBody);
+            return response.data;
         }
     }
     catch(error) {
@@ -19,15 +25,18 @@ export const createBoardAsync = createAsyncThunk('board/create', async(data) =>{
     }
 });
 
-export const getAllBoardAsync = createAsyncThunk('board/allBoard', async() => {
+export const getAllBoardAsync = createAsyncThunk('board/allBoard', async(date) => {
     try {
+        console.log('in side get all board action');
+        let serviceURLInstance  = axiosInstances.service;
+
+        const serviceUri = `${serviceProps.exploreBoardService.getExploreCards.uri}?date=${date}`;
         if(mockResonseFlag){
-            console.log('in side get all board action');
             return MockResponse.getAllBoard.response.payload.records[0];
         }
         else {
-            const response = await axios.get('/getAllBoard');
-            return response.payload.records[0]; 
+            const response =  await serviceURLInstance.get(serviceUri);
+            return response.data; 
         }
     }
     catch(error) {
@@ -35,15 +44,18 @@ export const getAllBoardAsync = createAsyncThunk('board/allBoard', async() => {
     }
 });
 
-export const getBoardByIdAsync = createAsyncThunk('board/boardById', async(boardId) => {
+export const getBoardByIdAsync = createAsyncThunk('board/boardById', async(userId) => {
     try {
+        console.log('in side get all board action');
+        let serviceURLInstance  = axiosInstances.service;
+        const serviceUri = `${serviceProps.boardService.getAllBoardsByUserId.uri}?userId=${userId}`;
+
         if(mockResonseFlag){
-            console.log('in side get all board action');
             return MockResponse.getBoardById.response.payload.records[0];
         }
         else {
-            const response = await axios.get(`/getBoardById?id=${boardId}`);
-            return response.payload.records[0]; 
+            const response =  await serviceURLInstance.get(serviceUri);
+            return response.data; 
         }
     }
     catch(error) {

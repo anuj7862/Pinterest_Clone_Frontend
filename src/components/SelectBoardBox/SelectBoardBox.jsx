@@ -7,7 +7,7 @@ import {useNavigate} from 'react-router-dom';
 import './SelectBoardBox.css';
 
 function SelectBoardBox({onSelect, boxName, array, title}) {
-    //console.log(array);
+    //console.log("array ",array);
     const navigate = useNavigate();
 
     const handleClickBoard = (e) => {
@@ -18,7 +18,7 @@ function SelectBoardBox({onSelect, boxName, array, title}) {
 
     const handleClickTopic = (e) => {
         e.preventDefault();
-        //console.log(e.target.id);
+        console.log("@@@",e.target.id);
         onSelect(e.target.id);
     };
     const handleCreateBoard = () => {
@@ -33,9 +33,9 @@ function SelectBoardBox({onSelect, boxName, array, title}) {
                 <h5>All Boards</h5>
                 {array.map((board) => 
                     { 
-                       return( board?.id !== undefined ? 
-                        <div key={board?.id} className="boardOption" id={board?.id} onClick={handleClickBoard}>
-                            <img src={board?.image} alt={board?.name} />
+                       return( board?._id !== undefined ? 
+                        <div key={board?._id} className="boardOption" id={board?._id} onClick={handleClickBoard}>
+                            <img src={board?.pins[0]?.image} alt={board?.name} />
                             <p className='boardName'> {board?.name}</p>
                             { board.isLocked && 
                                 <IoMdLock className='lockIcon' size={'1.4rem'}/>
@@ -53,7 +53,7 @@ function SelectBoardBox({onSelect, boxName, array, title}) {
             <div className='boardBox'>
                 <h5>{title}</h5>
                 {array.map((topic) => (
-                    <div key={topic?.id} className="boardOption" id={topic?.id} onClick={handleClickTopic}>
+                    <div key={topic?._id} className="boardOption" id={topic?._id} onClick={handleClickTopic}>
                         <p className='topicName'> {topic?.name}</p>
                     </div>
                 ))}

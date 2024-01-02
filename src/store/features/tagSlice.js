@@ -1,16 +1,19 @@
 import {createSlice, createAsyncThunk} from '@reduxjs/toolkit';
 import MockResponse from '../../utils/MockResponse';
 import { mockResonseFlag } from '../../utils/Utility';
-import axios from 'axios';
+import { axiosInstances, serviceProps } from '../../envConfig';
 
 export const getTagListAsync = createAsyncThunk('tag/tagList', async() => {
     try {
+        let serviceURLInstance  = axiosInstances.service;
+
+        const serviceUri = serviceProps.tagTopicService.getTagTopics.uri;
         if(mockResonseFlag){
             return MockResponse.getTagList.response.payload.records[0];
         }
         else {
-            const response = await axios.get('/getTagList');
-            return response.payload.records[0];
+            const response =  await serviceURLInstance.get(serviceUri);
+            return response.data;
         }
     }
     catch(error) {
@@ -41,7 +44,7 @@ const tagSlice = createSlice({
             })
             .addCase(getTagListAsync.rejected, (state, action) => {
                 state.tagList = null;
-                state.error = action.error.message || 'create board failed';
+                state.error = action.error.message || 'get Tag topics failed';
             })
     }
 });

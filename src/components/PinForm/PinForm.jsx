@@ -15,12 +15,13 @@ import './PinForm.css';
 import { clearPinState, createPinAsync } from '../../store/features/pinSlice';
 import { useEffect } from 'react';
 import { clearTagState, getTagListAsync } from '../../store/features/tagSlice';
+import { userDetailsAsync } from '../../store/features/authSlice';
 
 function PinForm() {
     const authState = useSelector((state) => state.auth);
     const tagState = useSelector((state) => state.tag);
     const boards = authState.user?.boards ? authState.user.boards : [];
-
+    //console.log("boards....." , boards);
     const topics = useSignal([]);
 
     const title= useSignal('');
@@ -34,7 +35,7 @@ function PinForm() {
     const [taggedTopics,setTaggedTopics] = useState([]);
     const [allowComments, setAllowComments] = useState(true);
     const [showProducts, setShowProducts] = useState(true);
-    const [isBoardFocus, setIsBoardFocus] = useState(false);
+    const [isBoardFocus, setIsBoardFocus] = useState(true);
     const [isTopicFocus, setIsTopicFocus] = useState(false);
     const [isMoreOption, setIsMoreOption] = useState(false);
 
@@ -55,22 +56,26 @@ function PinForm() {
 
     const handleSubmit = () => {
         const data = {
-            "title" : title.value,
-            "imageLink": imageLink,
-            "description" : description.value,
-            "board" : board.value,
-            "tagged Topics" : taggedTopics,
-            "allowCom" : allowComments 
+            title : title.value,
+            image: imageLink,
+            description : description.value,
+            tags : taggedTopics,
+            allowComments : allowComments,
+            showSimilar : showProducts,
+            createdBy : authState.user?._id, 
         };
+        if(board.value._id)
+            data.board = board.value._id;
         console.log("craete pin" , data);
-        dispatch(createPinAsync());
+        dispatch(createPinAsync(data));
     }
 
     effect(() => {
         if(pinState.pinCreated){
             console.log("effect create pin");
             dispatch(clearPinState('pinCreated'));
-            navigate(-1);
+            dispatch(userDetailsAsync(authState.user._id));
+            navigate('/home');
         }
         if(tagState.tagList) {
             console.log("effect tag list");
@@ -81,7 +86,7 @@ function PinForm() {
 
     const onBoardSelect = (id) => {
         if(id !== ''){
-            let selected = boards.find(ele => ele.id === id); //find board by id
+            let selected = boards.find(ele => ele._id === id); //find board by id
             board.value = selected;
             console.log(board.value, id);
             setIsBoardFocus(false);
@@ -90,15 +95,17 @@ function PinForm() {
     } 
     const onTopicSelect = (id) => {
 
-        let index = topics.value.findIndex(ele => ele.id === id); //find index
+        let index = topics.value.findIndex(ele => ele._id === id); //find index
         //let selected;
         if(index !== -1){
             let selected = {...topics.value[index]};
             selected.color = `rgb(${Math.random()*100}, ${Math.random()*100}, ${Math.random()*100})`;
-            taggedTopics.push(selected);
-            topics.value = topics.value.filter((ele) => ele.id !== id); //remove from topics
+            console.log(selected, "selected");
+            taggedTopics.push({...selected});
+            topics.value = topics.value.filter((ele) => ele._id !== id); //remove from topics
             setIsTopicFocus(false);
             topicDiv.current.blur();
+            console.log("tagged", taggedTopics);
         }
     }
 
@@ -148,11 +155,11 @@ function PinForm() {
 
     const removeTopic = (e) => {
         e.preventDefault();
-        let index = taggedTopics.findIndex(ele => ele.id === e.target.id);
+        let index = taggedTopics.findIndex(ele => ele._id === e.target.id);
         if(index !== -1) {
             let removed = {...taggedTopics[index]};
             topics.value.push(removed); 
-            setTaggedTopics(taggedTopics.filter((ele) => ele.id !== e.target.id));
+            setTaggedTopics(taggedTopics.filter((ele) => ele._id !== e.target.id));
             console.log("remove", topics.value, removed, e.target.id, taggedTopics);
         }
     }
@@ -207,8 +214,8 @@ function PinForm() {
                             onFocus={() => setIsBoardFocus(true)}
                             onBlur={() => setIsBoardFocus(false)}
                         >
-                            {board.value?.image && 
-                                <img src={board.value?.image} alt={board.value?.name} />
+                            {board.value?.pins?.length >= 1 && 
+                                <img src={board.value?.pins[0]?.image} alt={board.value?.name} />
                             }
                             <p>{board.value?.name}  </p>
                             <FaChevronDown className='downArrow' size={'1.2rem'}/>
