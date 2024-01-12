@@ -2,10 +2,10 @@ import React from 'react';
 
 import './CustomLoader.css';
 
-function CustomLoader() {
+function CustomLoader({showText}) {
   return (
     <div className='customLoader'>
-        <div class="circle-loader">
+        <div className="circle-loader">
             <div></div>
             <div></div>
             <div></div>
@@ -15,7 +15,9 @@ function CustomLoader() {
             <div></div>
             <div></div>
         </div>
+      { showText &&
         <p> We're adding new ideas to your home feed! </p>
+      }
     </div>
   )
 }

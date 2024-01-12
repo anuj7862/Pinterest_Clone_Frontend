@@ -12,7 +12,7 @@ function BoardCard({board}) {
   // const dispatch = useDispatch();
   const pins = useSignal(board?.pins);
   const greyImage = 'https://i.pinimg.com/564x/92/3c/50/923c508dac22439e4f56502f7181e040.jpg';
-  console.log("pins", pins.value?.length, board);
+  //console.log("pins", pins.value?.length, board);
   // const onLoad = useSignal(true);
 
   // useEffect(() => {

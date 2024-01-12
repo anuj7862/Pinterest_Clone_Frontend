@@ -11,7 +11,7 @@
     font-weight: 800;
     text-align:  center;
     margin-top: 2rem;
-    color: rgb(116, 116, 116);
+    color: rgb(39, 38, 38);
     width: 15rem;
 }
 
@@ -22,7 +22,7 @@
 .circle-loader div {
     height: 10px;
     width: 10px;
-    background-color: rgb(116, 116, 116);
+    background-color: rgb(39, 38, 38);
     border-radius: 50%;
     position: absolute;
     -webkit-animation: 3s opaque ease-in-out infinite both;

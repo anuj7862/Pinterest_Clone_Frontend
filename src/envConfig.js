@@ -3,7 +3,7 @@
 
 import axios from "axios";
 
-export const baseUrl =  'http://localhost:3000';
+export const baseUrl =  'https://pinterest-backend-uocs.onrender.com';
 
 export const axiosInstances = {
     service : axios.create({

@@ -21,7 +21,7 @@ function ProfilePage() {
     //console.log(authState.user);
     
     useEffect(() => {
-        console.log('profile effect', authState.user);
+        console.log('profile effect');
         if(authState.user === null) //if user not loggedin
             navigate('/');
     }, []);
@@ -35,7 +35,7 @@ function ProfilePage() {
     const plusIconRef = useRef(null);
 
     const handlePlus = (id) => {
-        console.log("@@@@@@@@@@", id);
+        // console.log("@@@@@@@@@@", id);
         setPlusFlag(false);
         plusIconRef.current.blur();
         //redirect to that screen
@@ -97,7 +97,7 @@ function ProfilePage() {
                 <div ref={plusIconRef}
                   tabIndex={0} //for make div focusable
                   onFocus={() => setPlusFlag(true)}
-                  onBlur={() => {setPlusFlag(false); console.log("blur");}}>
+                  onBlur={() => setPlusFlag(false)}>
                     <TbPlus className='profilePlusIcon' size={'2rem'}/>
                     { plusFlag &&
                         <div className='createBox'>

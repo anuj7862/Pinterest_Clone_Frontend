@@ -60,7 +60,7 @@ function HomePage() {
             dataLength={pins.value.length}
             next={loadMore}
             hasMore={hasMore.value}
-            loader={<CustomLoader/> }
+            loader={<CustomLoader showText={true}/> }
             className="pinsDiv"
             >
                 <Masonry columns={5} spacing={1}>

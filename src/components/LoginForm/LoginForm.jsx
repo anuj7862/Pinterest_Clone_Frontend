@@ -9,6 +9,7 @@ import { useDispatch, useSelector } from 'react-redux';
 
 import { loginAsync, signupAsync } from '../../store/features/authSlice';
 import './LoginForm.css';
+import CustomLoader from '../CustomLoader/CustomLoader';
 
 function LoginForm(props) {
     const navigate = useNavigate();
@@ -18,17 +19,24 @@ function LoginForm(props) {
     const emailId = useSignal('');
     const password = useSignal('');
     const dob = useSignal('');
+    const [isLoader, setIsLoader] = useState(false);
     const [isLogin, setIsLogin] = useState(props?.isLogin);
 
     // console.log(isLogin);
     effect(() => {
-        if(authState.user !== null)
+        if(authState.user !== null){
             navigate('/profile');
+            setIsLoader(false);
+        }
     });
 
     const handleSubmit = (e) => {
         e.preventDefault();
         console.log(dob.value);
+        setIsLoader(true);
+        if(props?.handleLoader)
+            props?.handleLoader(true);
+        
         if(isLogin){ //login request
             
             console.log(emailId.value, password.value);
@@ -111,7 +119,11 @@ function LoginForm(props) {
                     Already a member? Log in
                 </div>
             }
-
+            { isLoader &&
+                <div className="showloader">
+                    <CustomLoader/>
+                </div>
+            }
         </div>
     )
 }

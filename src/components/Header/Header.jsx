@@ -1,6 +1,6 @@
 // Header.js
 import { effect, useSignal } from '@preact/signals-react';
-import React from 'react';
+import React, { useEffect } from 'react';
 import { useState } from 'react';
 import { Link} from 'react-router-dom';
 import {useSelector, useDispatch} from 'react-redux';
@@ -12,6 +12,7 @@ import LoginForm from '../LoginForm/LoginForm';
 import './Header.css';
 import { clearAuthState, logoutAsync } from '../../store/features/authSlice';
 import { useRef } from 'react';
+import CustomLoader from '../CustomLoader/CustomLoader';
 
 const Header = () => {
   const noitifictionRef = useRef(null);
@@ -24,7 +25,8 @@ const Header = () => {
   const [showForm, setShowForm] = useState(false);
   const [showMessage, setShowMessage] = useState(false);
   const [showNotification, setShowNotification] = useState(false);
-  
+  const [isLoader, setIsLoader] = useState(false);
+
   const messageText = useSignal('');
   const loginFlag = useSignal('');
   const logoutFlag = useSignal(false);
@@ -32,6 +34,11 @@ const Header = () => {
   const handleClose = () => {
     setShowForm(false);  
   }
+
+  useEffect(() => {
+    if(userState)
+      setIsLoader(false);
+  },[userState]);
 
   const handleLogout = () => {
     logoutFlag.value = true;
@@ -70,6 +77,10 @@ const Header = () => {
 
   const handleProfileBtn = () => {
     navigate('/profile');
+  }
+
+  const setHeaderLoader = (value) => {
+    setIsLoader(value);
   }
 
   return (
@@ -131,8 +142,13 @@ const Header = () => {
       </div>
 
       {showForm && <div className="headerForm">
-        <LoginForm isLogin={loginFlag.value} close={true} handleClose={handleClose}/>
+        <LoginForm isLogin={loginFlag.value} close={true} handleClose={handleClose} handleLoader={setHeaderLoader}/>
       </div>}
+      { isLoader &&
+        <div className="showloader">
+            <CustomLoader/>
+        </div>
+      }
     </div>
   );
 };
